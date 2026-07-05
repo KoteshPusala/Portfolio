@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sun, Moon, Menu, X, Download } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useActiveSection } from '../hooks/useActiveSection';
 import { personalInfo } from '../data/portfolioData';
@@ -104,17 +104,6 @@ export const Navbar = () => {
 
         {/* Action Buttons */}
         <div className="hidden lg:flex items-center space-x-4">
-          {/* Theme Toggle */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={toggleTheme}
-            className="p-2.5 rounded-xl border border-premiumLight-border dark:border-premiumDark-border bg-premiumLight-card dark:bg-premiumDark-card text-premiumLight-muted dark:text-premiumDark-muted hover:text-premiumLight-primary dark:hover:text-premiumDark-accent transition-all duration-300 shadow-sm cursor-pointer"
-            aria-label="Toggle theme"
-          >
-            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-          </motion.button>
-
           {/* Resume Button */}
           <motion.a
             href={personalInfo.resumeUrl}
@@ -130,15 +119,6 @@ export const Navbar = () => {
 
         {/* Mobile Navbar Controls */}
         <div className="flex lg:hidden items-center space-x-3">
-          {/* Theme Toggle Mobile */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg border border-premiumLight-border dark:border-premiumDark-border bg-premiumLight-card dark:bg-premiumDark-card text-premiumLight-muted dark:text-premiumDark-muted"
-            aria-label="Toggle theme"
-          >
-            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-          </button>
-
           {/* Hamburger Menu Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
