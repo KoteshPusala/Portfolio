@@ -37,7 +37,6 @@ export const Navbar = () => {
   const activeSection = useActiveSection(navItems.map(item => item.id));
 
   const handleScrollTo = (id) => {
-    setIsOpen(false);
     const element = document.getElementById(id);
     if (element) {
       const offset = 80; // height of navbar
@@ -50,6 +49,16 @@ export const Navbar = () => {
         top: offsetPosition,
         behavior: 'smooth'
       });
+    }
+
+    // On mobile, delay closing the drawer menu to prevent the browser
+    // from canceling the smooth scroll animation during layout shifts.
+    if (isOpen) {
+      setTimeout(() => {
+        setIsOpen(false);
+      }, 150);
+    } else {
+      setIsOpen(false);
     }
   };
 
