@@ -1,4 +1,4 @@
-# Premium Developer Portfolio: Pusala Kotesh
+# Portfolio: Pusala Kotesh
 
 A world-class, premium, and fully responsive developer portfolio built for **Pusala Kotesh** using React (Vite), Tailwind CSS, Framer Motion, and EmailJS. Features glassmorphism components, floating tech badges, dark/light theme switching, animated metric counters, and timeline milestones.
 
