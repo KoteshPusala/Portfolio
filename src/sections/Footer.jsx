@@ -1,6 +1,7 @@
 import { Mail, ArrowUp } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
+import { Link } from 'react-router-dom';
 import { personalInfo } from '../data/portfolioData';
 
 export const Footer = () => {
@@ -12,8 +13,8 @@ export const Footer = () => {
         
         {/* Brand/Logo */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
-          <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          <Link 
+            to="/"
             className="flex items-center space-x-2 group focus:outline-none"
           >
             <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-premiumLight-primary to-premiumLight-accent dark:from-premiumDark-accent dark:to-premiumDark-secondary flex items-center justify-center font-outfit font-extrabold text-white text-base shadow-sm">
@@ -22,7 +23,7 @@ export const Footer = () => {
             <span className="font-poppins font-bold text-base text-premiumLight-text dark:text-premiumDark-text tracking-tight group-hover:text-premiumLight-primary dark:group-hover:text-premiumDark-accent transition-colors duration-300">
               Kotesh Pusala
             </span>
-          </button>
+          </Link>
           <span className="text-xs text-premiumLight-muted dark:text-premiumDark-muted font-sans mt-1">
             Full-Stack Web Developer & AI Enthusiast
           </span>

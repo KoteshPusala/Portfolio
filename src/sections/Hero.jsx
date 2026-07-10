@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Download, Code } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
@@ -57,20 +58,10 @@ export const Hero = () => {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, titleIndex]);
 
-  const handleScrollToProjects = () => {
-    const element = document.getElementById('projects');
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+  const navigate = useNavigate();
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+  const handleNavigateToProjects = () => {
+    navigate('/projects');
   };
 
   // Stagger animation container
@@ -151,7 +142,7 @@ export const Hero = () => {
           >
             <Button 
               variant="primary" 
-              onClick={handleScrollToProjects}
+              onClick={handleNavigateToProjects}
               icon={<ArrowRight className="w-4 h-4" />}
             >
               View Projects

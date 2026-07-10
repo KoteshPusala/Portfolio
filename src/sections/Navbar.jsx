@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Download } from 'lucide-react';
+import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
-import { useActiveSection } from '../hooks/useActiveSection';
 import { personalInfo } from '../data/portfolioData';
 
 const navItems = [
@@ -34,34 +34,6 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const activeSection = useActiveSection(navItems.map(item => item.id));
-
-  const handleScrollTo = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80; // height of navbar
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-
-    // On mobile, delay closing the drawer menu to prevent the browser
-    // from canceling the smooth scroll animation during layout shifts.
-    if (isOpen) {
-      setTimeout(() => {
-        setIsOpen(false);
-      }, 150);
-    } else {
-      setIsOpen(false);
-    }
-  };
-
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -72,8 +44,8 @@ export const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <button 
-          onClick={() => handleScrollTo('home')}
+        <Link 
+          to="/"
           className="flex items-center space-x-2 group focus:outline-none"
         >
           <motion.div 
@@ -85,29 +57,35 @@ export const Navbar = () => {
           <span className="hidden sm:inline font-poppins font-bold text-lg text-premiumLight-text dark:text-premiumDark-text tracking-tight group-hover:text-premiumLight-primary dark:group-hover:text-premiumDark-accent transition-colors duration-300">
             Kotesh Pusala
           </span>
-        </button>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-1">
           {navItems.map((item) => (
-            <button
+            <NavLink
               key={item.id}
-              onClick={() => handleScrollTo(item.id)}
-              className={`relative px-4 py-2 text-sm font-medium font-outfit rounded-full transition-colors duration-300 focus:outline-none ${
-                activeSection === item.id 
-                  ? 'text-premiumLight-primary dark:text-premiumDark-accent' 
-                  : 'text-premiumLight-muted dark:text-premiumDark-muted hover:text-premiumLight-text dark:hover:text-premiumDark-text'
-              }`}
+              to={item.id === 'home' ? '/' : `/${item.id}`}
+              className={({ isActive }) => 
+                `relative px-4 py-2 text-sm font-medium font-outfit rounded-full transition-colors duration-300 focus:outline-none ${
+                  isActive 
+                    ? 'text-premiumLight-primary dark:text-premiumDark-accent' 
+                    : 'text-premiumLight-muted dark:text-premiumDark-muted hover:text-premiumLight-text dark:hover:text-premiumDark-text'
+                }`
+              }
             >
-              {item.label}
-              {activeSection === item.id && (
-                <motion.span 
-                  layoutId="activeNavIndicator"
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-1 rounded-full bg-premiumLight-primary dark:bg-premiumDark-accent"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                />
+              {({ isActive }) => (
+                <>
+                  {item.label}
+                  {isActive && (
+                    <motion.span 
+                      layoutId="activeNavIndicator"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-1 rounded-full bg-premiumLight-primary dark:bg-premiumDark-accent"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </>
               )}
-            </button>
+            </NavLink>
           ))}
         </nav>
 
@@ -147,21 +125,24 @@ export const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden w-full glass-nav-light dark:glass-nav-dark overflow-hidden absolute top-full left-0 shadow-lg border-t border-premiumLight-border dark:border-premiumDark-border"
+            className="lg:hidden w-full glass-nav-light dark:glass-nav-dark overflow-hidden absolute top-full left-0 shadow-lg border-t border-premiumLight-border dark:border-premiumDark-border z-50"
           >
             <div className="px-6 py-8 flex flex-col space-y-4">
               {navItems.map((item) => (
-                <button
+                <NavLink
                   key={item.id}
-                  onClick={() => handleScrollTo(item.id)}
-                  className={`text-left py-2 font-medium font-outfit text-base transition-colors ${
-                    activeSection === item.id
-                      ? 'text-premiumLight-primary dark:text-premiumDark-accent pl-2 border-l-2 border-premiumLight-primary dark:border-premiumDark-accent'
-                      : 'text-premiumLight-muted dark:text-premiumDark-muted'
-                  }`}
+                  to={item.id === 'home' ? '/' : `/${item.id}`}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) => 
+                    `text-left py-2 font-medium font-outfit text-base transition-colors ${
+                      isActive
+                        ? 'text-premiumLight-primary dark:text-premiumDark-accent pl-2 border-l-2 border-premiumLight-primary dark:border-premiumDark-accent'
+                        : 'text-premiumLight-muted dark:text-premiumDark-muted'
+                    }`
+                  }
                 >
                   {item.label}
-                </button>
+                </NavLink>
               ))}
               
               <div className="pt-4 border-t border-premiumLight-border dark:border-premiumDark-border flex flex-col space-y-4">
