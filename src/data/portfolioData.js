@@ -115,6 +115,22 @@ export const projectsData = [
     github: "https://github.com/KoteshPusala/todo-app",
     live: "https://todofrontend-beryl.vercel.app/login",
     imageType: "taskflow"
+  },
+  {
+    id: 4,
+    title: "AI Quiz Platform",
+    category: "AI + Full Stack + Education",
+    description: "A production-ready, AI-powered learning and exam preparation platform enabling students, competitive aspirants, and lifelong learners to generate personalized quizzes, review performance analytics, and learn via AI explanations.",
+    highlights: [
+      "Google Gemini AI & Groq API for personalized quiz creation",
+      "Interactive dashboard with learning statistics & accurate score tracking",
+      "Secure JWT-based authentication & persistent session management",
+      "Modular backend architecture with Node.js, Express, & PostgreSQL via Prisma"
+    ],
+    tags: ["React.js", "Vite", "React Router", "Tailwind CSS", "Node.js", "Express.js", "Prisma ORM", "PostgreSQL", "Google Gemini API"],
+    github: "https://github.com/KoteshPusala/AI-Quiz-Platform",
+    live: "https://ai-quiz-platform-tau.vercel.app/",
+    imageType: "quiz"
   }
 ];
 

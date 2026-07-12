@@ -11,11 +11,13 @@ import Button from '../components/Button';
 import nutriguardImg from '../assets/nutriguard_preview.png';
 import skillbridgeImg from '../assets/skillbridge_preview.png';
 import taskflowImg from '../assets/taskflow_preview.png';
+import quizImg from '../assets/quiz_preview.png';
 
 const imageMap = {
   1: nutriguardImg,
   2: skillbridgeImg,
-  3: taskflowImg
+  3: taskflowImg,
+  4: quizImg
 };
 
 export const Projects = () => {
