@@ -18,11 +18,55 @@ import ScrollProgress from './components/ScrollProgress';
 import ScrollToTop from './components/ScrollToTop';
 import BackgroundBlobs from './components/BackgroundBlobs';
 
+// Helper component to render all sections sequentially
+const MainContent = () => {
+  return (
+    <>
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Experience />
+      <Education />
+      <Achievements />
+      <Certifications />
+      <Services />
+      <Contact />
+    </>
+  );
+};
+
 function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const scrollToSection = () => {
+      // Get section ID from the pathname (e.g. "/about" -> "about")
+      const sectionId = pathname === '/' ? 'home' : pathname.substring(1);
+      const element = document.getElementById(sectionId);
+      
+      if (element) {
+        const offset = 80; // Height of sticky navbar
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      } else if (pathname === '/') {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    };
+
+    // Run after a short delay to ensure React DOM elements are fully mounted
+    const timer = setTimeout(scrollToSection, 100);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return (
@@ -44,16 +88,16 @@ function App() {
         {/* Main Content Layout */}
         <main className="relative z-10 w-full flex flex-col">
           <Routes>
-            <Route path="/" element={<Hero />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/achievements" element={<Achievements />} />
-            <Route path="/certifications" element={<Certifications />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={<MainContent />} />
+            <Route path="/about" element={<MainContent />} />
+            <Route path="/skills" element={<MainContent />} />
+            <Route path="/projects" element={<MainContent />} />
+            <Route path="/experience" element={<MainContent />} />
+            <Route path="/education" element={<MainContent />} />
+            <Route path="/achievements" element={<MainContent />} />
+            <Route path="/certifications" element={<MainContent />} />
+            <Route path="/services" element={<MainContent />} />
+            <Route path="/contact" element={<MainContent />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
